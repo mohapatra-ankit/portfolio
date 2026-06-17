@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel – Ankit's Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #F2EDE6;
+      --warm-white: #FAF8F5;
+      --dark: #1A1714;
+      --brown: #3B2C20;
+      --bronze: #8B6340;
+      --bronze-light: #C4976A;
+      --sand: #D9C9B5;
+      --text: #2E2018;
+      --muted: #7A6A5A;
+      --success: #2d6a4f;
+      --error: #9b2335;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── LOGIN PAGE ── */
+    #login-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .login-box {
+      background: var(--warm-white);
+      border: 1px solid var(--sand);
+      border-radius: 6px;
+      padding: 3rem 2.5rem;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .login-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--brown);
+      margin-bottom: 0.3rem;
+    }
+
+    .login-subtitle {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+    }
+
+    .form-group {
+      text-align: left;
+      margin-bottom: 1.2rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    input[type="email"],
+    input[type="password"],
+    input[type="text"],
+    input[type="url"],
+    textarea {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border: 1px solid var(--sand);
+      border-radius: 3px;
+      background: var(--cream);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--bronze);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 0.8rem;
+      background: var(--brown);
+      color: var(--cream);
+      border: none;
+      border-radius: 3px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    .btn-primary:hover { background: var(--bronze); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .error-msg {
+      background: #fdf0f0;
+      border: 1px solid #f5c6c6;
+      color: var(--error);
+      font-size: 0.82rem;
+      padding: 0.6rem 1rem;
+      border-radius: 3px;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    /* ── DASHBOARD ── */
+    #dashboard { display: none; }
+
+    .dash-header {
+      background: var(--brown);
+      color: var(--cream);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .dash-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+    }
+
+    .btn-logout {
+      background: transparent;
+      border: 1px solid rgba(250,248,245,0.4);
+      color: var(--cream);
+      padding: 0.4rem 1rem;
+      border-radius: 3px;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-logout:hover { background: rgba(250,248,245,0.1); }
+
+    .dash-body {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--sand);
+      padding-bottom: 0;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 0.6rem 1.2rem;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      margin-bottom: -1px;
+    }
+
+    .tab-btn.active {
+      color: var(--bronze);
+      border-bottom-color: var(--bronze);
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Section card */
+    .section-card {
+      background: var(--warm-white);
+      border: 1px solid var(--sand);
+      border-radius: 4px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: var(--brown);
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--sand);
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .field-row { grid-template-columns: 1fr; }
+    }
+
+    .save-btn {
+      margin-top: 1.2rem;
+      padding: 0.65rem 1.8rem;
+      background: var(--brown);
+      color: var(--cream);
+      border: none;
+      border-radius: 3px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .save-btn:hover { background: var(--bronze); }
+    .save-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--success);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Add item button */
+    .add-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1rem;
+      border: 1px dashed var(--bronze);
+      background: none;
+      color: var(--bronze);
+      border-radius: 3px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 1rem;
+    }
+
+    .add-btn:hover { background: rgba(139,99,64,0.06); }
+
+    .remove-btn {
+      background: none;
+      border: none;
+      color: var(--error);
+      font-size: 0.78rem;
+      cursor: pointer;
+      padding: 0.2rem 0.4rem;
+      margin-top: 0.3rem;
+      text-decoration: underline;
+    }
+
+    .item-block {
+      border: 1px solid var(--sand);
+      border-radius: 3px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background: var(--cream);
+    }
+
+    .item-block-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .item-block-title {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .loading-overlay {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN PAGE -->
+<div id="login-page">
+  <div class="login-box">
+    <div class="login-logo">Ankit M.</div>
+    <div class="login-subtitle">Super Admin Panel</div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="login-email" placeholder="your@email.com" autocomplete="email"/>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password"/>
+    </div>
+    <button class="btn-primary" id="login-btn">Sign In</button>
+    <div class="error-msg" id="login-error"></div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <div class="dash-header">
+    <h1>Portfolio Admin</h1>
+    <button class="btn-logout" id="logout-btn">Sign Out</button>
+  </div>
+
+  <div class="dash-body">
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="education">Education</button>
+      <button class="tab-btn" data-tab="projects">Projects</button>
+      <button class="tab-btn" data-tab="blogs">Blogs</button>
+      <button class="tab-btn" data-tab="contact">Contact</button>
+    </div>
+
+    <!-- EDUCATION TAB -->
+    <div class="tab-panel active" id="tab-education">
+      <div class="loading-overlay" id="edu-loading">Loading...</div>
+      <div id="edu-content" style="display:none">
+        <div id="edu-items"></div>
+        <button class="add-btn" id="add-edu-btn">+ Add Education</button>
+        <br/>
+        <button class="save-btn" id="save-edu-btn">Save Education</button>
+      </div>
+    </div>
+
+    <!-- PROJECTS TAB -->
+    <div class="tab-panel" id="tab-projects">
+      <div class="loading-overlay" id="proj-loading">Loading...</div>
+      <div id="proj-content" style="display:none">
+        <div id="proj-items"></div>
+        <button class="add-btn" id="add-proj-btn">+ Add Project</button>
+        <br/>
+        <button class="save-btn" id="save-proj-btn">Save Projects</button>
+      </div>
+    </div>
+
+    <!-- BLOGS TAB -->
+    <div class="tab-panel" id="tab-blogs">
+      <div class="loading-overlay" id="blog-loading">Loading...</div>
+      <div id="blog-content" style="display:none">
+        <div id="blog-items"></div>
+        <button class="add-btn" id="add-blog-btn">+ Add Blog</button>
+        <br/>
+        <button class="save-btn" id="save-blog-btn">Save Blogs</button>
+      </div>
+    </div>
+
+    <!-- CONTACT TAB -->
+    <div class="tab-panel" id="tab-contact">
+      <div class="loading-overlay" id="contact-loading">Loading...</div>
+      <div id="contact-content" style="display:none">
+        <div class="section-card">
+          <h3>Contact Information</h3>
+          <div class="form-group">
+            <label>Heading Text</label>
+            <input type="text" id="contact-heading" placeholder="Reach out if you want to create impactful solutions together."/>
+          </div>
+          <div class="field-row">
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" id="contact-email" placeholder="you@email.com"/>
+            </div>
+            <div class="form-group">
+              <label>Website</label>
+              <input type="text" id="contact-website" placeholder="yoursite.com"/>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="form-group">
+              <label>LinkedIn URL</label>
+              <input type="url" id="contact-linkedin" placeholder="https://linkedin.com/in/..."/>
+            </div>
+            <div class="form-group">
+              <label>GitHub URL</label>
+              <input type="url" id="contact-github" placeholder="https://github.com/..."/>
+            </div>
+          </div>
+          <button class="save-btn" id="save-contact-btn">Save Contact</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast">Changes saved!</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, doc, getDoc, setDoc }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAGXUCwIWavNtIAy69CzpuArdW6BouMLSE",
+    authDomain: "my-portfolio-eea87.firebaseapp.com",
+    projectId: "my-portfolio-eea87",
+    storageBucket: "my-portfolio-eea87.firebasestorage.app",
+    messagingSenderId: "257049023490",
+    appId: "1:257049023490:web:ff4af2073ab154f02f031b"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // ── AUTH ──
+  const loginPage = document.getElementById('login-page');
+  const dashboard = document.getElementById('dashboard');
+
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      loginPage.style.display = 'none';
+      dashboard.style.display = 'block';
+      loadAllData();
+    } else {
+      loginPage.style.display = 'flex';
+      dashboard.style.display = 'none';
+    }
+  });
+
+  document.getElementById('login-btn').addEventListener('click', async () => {
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    const errEl = document.getElementById('login-error');
+    const btn = document.getElementById('login-btn');
+
+    errEl.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Signing in...';
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (e) {
+      errEl.textContent = 'Invalid email or password. Please try again.';
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Sign In';
+    }
+  });
+
+  document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
+
+  // ── TABS ──
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // ── TOAST ──
+  function showToast(msg = 'Changes saved!') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  // ── LOAD ALL DATA ──
+  async function loadAllData() {
+    await Promise.all([loadEducation(), loadProjects(), loadBlogs(), loadContact()]);
+  }
+
+  // ══ EDUCATION ══
+  let eduData = [];
+
+  async function loadEducation() {
+    const snap = await getDoc(doc(db, 'portfolio', 'education'));
+    eduData = snap.exists() ? (snap.data().items || []) : [
+      { icon: '🎓', school: 'St. Thomas School', location: 'Ranchi', detail: 'Completed my matriculation in ICSE Board', years: '2020–2024' },
+      { icon: '🏛️', school: 'Delhi Public School', location: 'Ranchi', detail: 'Completed the Senior School Certification Examination from CBSE Board', years: '2024–2026' },
+      { icon: '⚙️', school: 'BITS Pilani', location: 'Birla Institute of Technology and Science', detail: '', years: '2026–2031' }
+    ];
+    renderEducation();
+    document.getElementById('edu-loading').style.display = 'none';
+    document.getElementById('edu-content').style.display = 'block';
+  }
+
+  function renderEducation() {
+    const container = document.getElementById('edu-items');
+    container.innerHTML = '';
+    eduData.forEach((item, i) => {
+      const block = document.createElement('div');
+      block.className = 'item-block';
+      block.innerHTML = `
+        <div class="item-block-header">
+          <span class="item-block-title">Entry ${i + 1}</span>
+          <button class="remove-btn" data-i="${i}">Remove</button>
+        </div>
+        <div class="field-row">
+          <div class="form-group">
+            <label>Icon (emoji)</label>
+            <input type="text" value="${item.icon || ''}" data-field="icon" data-i="${i}" maxlength="4"/>
+          </div>
+          <div class="form-group">
+            <label>School / Institution</label>
+            <input type="text" value="${item.school || ''}" data-field="school" data-i="${i}"/>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="form-group">
+            <label>Location / Sub-title</label>
+            <input type="text" value="${item.location || ''}" data-field="location" data-i="${i}"/>
+          </div>
+          <div class="form-group">
+            <label>Years</label>
+            <input type="text" value="${item.years || ''}" data-field="years" data-i="${i}" placeholder="2020–2024"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Detail / Description</label>
+          <input type="text" value="${item.detail || ''}" data-field="detail" data-i="${i}"/>
+        </div>
+      `;
+      container.appendChild(block);
+    });
+
+    container.querySelectorAll('input').forEach(input => {
+      input.addEventListener('input', e => {
+        eduData[e.target.dataset.i][e.target.dataset.field] = e.target.value;
+      });
+    });
+
+    container.querySelectorAll('.remove-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        eduData.splice(parseInt(e.target.dataset.i), 1);
+        renderEducation();
+      });
+    });
+  }
+
+  document.getElementById('add-edu-btn').addEventListener('click', () => {
+    eduData.push({ icon: '🎓', school: '', location: '', detail: '', years: '' });
+    renderEducation();
+  });
+
+  document.getElementById('save-edu-btn').addEventListener('click', async () => {
+    const btn = document.getElementById('save-edu-btn');
+    btn.disabled = true; btn.textContent = 'Saving...';
+    await setDoc(doc(db, 'portfolio', 'education'), { items: eduData });
+    btn.disabled = false; btn.textContent = 'Save Education';
+    showToast('Education saved!');
+  });
+
+  // ══ PROJECTS ══
+  let projData = [];
+
+  async function loadProjects() {
+    const snap = await getDoc(doc(db, 'portfolio', 'projects'));
+    projData = snap.exists() ? (snap.data().items || []) : [
+      { name: 'Vijay Kumavan', type: 'Illustration', image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80', link: '' },
+      { name: 'Monsanto Hotel', type: 'Illustration', image: 'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=600&q=80', link: '' },
+      { name: 'Uni Burger', type: 'Illustration', image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80', link: '' },
+    ];
+    renderProjects();
+    document.getElementById('proj-loading').style.display = 'none';
+    document.getElementById('proj-content').style.display = 'block';
+  }
+
+  function renderProjects() {
+    const container = document.getElementById('proj-items');
+    container.innerHTML = '';
+    projData.forEach((item, i) => {
+      const block = document.createElement('div');
+      block.className = 'item-block';
+      block.innerHTML = `
+        <div class="item-block-header">
+          <span class="item-block-title">Project ${i + 1}</span>
+          <button class="remove-btn" data-i="${i}">Remove</button>
+        </div>
+        <div class="field-row">
+          <div class="form-group">
+            <label>Project Name</label>
+            <input type="text" value="${item.name || ''}" data-field="name" data-i="${i}"/>
+          </div>
+          <div class="form-group">
+            <label>Type / Category</label>
+            <input type="text" value="${item.type || ''}" data-field="type" data-i="${i}" placeholder="Branding, Illustration..."/>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="form-group">
+            <label>Image URL</label>
+            <input type="url" value="${item.image || ''}" data-field="image" data-i="${i}" placeholder="https://..."/>
+          </div>
+          <div class="form-group">
+            <label>Project Link (optional)</label>
+            <input type="url" value="${item.link || ''}" data-field="link" data-i="${i}" placeholder="https://..."/>
+          </div>
+        </div>
+      `;
+      container.appendChild(block);
+    });
+
+    container.querySelectorAll('input').forEach(input => {
+      input.addEventListener('input', e => {
+        projData[e.target.dataset.i][e.target.dataset.field] = e.target.value;
+      });
+    });
+
+    container.querySelectorAll('.remove-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        projData.splice(parseInt(e.target.dataset.i), 1);
+        renderProjects();
+      });
+    });
+  }
+
+  document.getElementById('add-proj-btn').addEventListener('click', () => {
+    projData.push({ name: '', type: '', image: '', link: '' });
+    renderProjects();
+  });
+
+  document.getElementById('save-proj-btn').addEventListener('click', async () => {
+    const btn = document.getElementById('save-proj-btn');
+    btn.disabled = true; btn.textContent = 'Saving...';
+    await setDoc(doc(db, 'portfolio', 'projects'), { items: projData });
+    btn.disabled = false; btn.textContent = 'Save Projects';
+    showToast('Projects saved!');
+  });
+
+  // ══ BLOGS ══
+  let blogData = [];
+
+  async function loadBlogs() {
+    const snap = await getDoc(doc(db, 'portfolio', 'blogs'));
+    blogData = snap.exists() ? (snap.data().items || []) : [
+      { quote: 'Vibrant and encouraging enthusiasm', excerpt: 'Absolutely brilliant project collaboration. Ankit brings a lot of clear visual tools — all while maintaining a vibrant and encouraging enthusiasm.', attribution: 'Crowd Zero, Shopping Platform' },
+      { quote: 'A truly inspiring designer', excerpt: "Ankit's grasp of digital art is truly inspiring. You'll come away a better way of seeing what's possible during the project process with Ankit.", attribution: 'Sara Pardesi, Social Media Influencer' },
+      { quote: 'Add a one-liner testimonial', excerpt: "Great product and service! Ankit's credibility. The ability to tell stories and sell products.", attribution: 'Vijay Kumaran, Online Store Owner' },
+    ];
+    renderBlogs();
+    document.getElementById('blog-loading').style.display = 'none';
+    document.getElementById('blog-content').style.display = 'block';
+  }
+
+  function renderBlogs() {
+    const container = document.getElementById('blog-items');
+    container.innerHTML = '';
+    blogData.forEach((item, i) => {
+      const block = document.createElement('div');
+      block.className = 'item-block';
+      block.innerHTML = `
+        <div class="item-block-header">
+          <span class="item-block-title">Blog / Testimonial ${i + 1}</span>
+          <button class="remove-btn" data-i="${i}">Remove</button>
+        </div>
+        <div class="form-group">
+          <label>Quote / One-liner</label>
+          <input type="text" value="${item.quote || ''}" data-field="quote" data-i="${i}"/>
+        </div>
+        <div class="form-group">
+          <label>Excerpt / Body</label>
+          <textarea data-field="excerpt" data-i="${i}">${item.excerpt || ''}</textarea>
+        </div>
+        <div class="form-group">
+          <label>Attribution</label>
+          <input type="text" value="${item.attribution || ''}" data-field="attribution" data-i="${i}" placeholder="Name, Role"/>
+        </div>
+      `;
+      container.appendChild(block);
+    });
+
+    container.querySelectorAll('input, textarea').forEach(input => {
+      input.addEventListener('input', e => {
+        blogData[e.target.dataset.i][e.target.dataset.field] = e.target.value;
+      });
+    });
+
+    container.querySelectorAll('.remove-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        blogData.splice(parseInt(e.target.dataset.i), 1);
+        renderBlogs();
+      });
+    });
+  }
+
+  document.getElementById('add-blog-btn').addEventListener('click', () => {
+    blogData.push({ quote: '', excerpt: '', attribution: '' });
+    renderBlogs();
+  });
+
+  document.getElementById('save-blog-btn').addEventListener('click', async () => {
+    const btn = document.getElementById('save-blog-btn');
+    btn.disabled = true; btn.textContent = 'Saving...';
+    await setDoc(doc(db, 'portfolio', 'blogs'), { items: blogData });
+    btn.disabled = false; btn.textContent = 'Save Blogs';
+    showToast('Blogs saved!');
+  });
+
+  // ══ CONTACT ══
+  async function loadContact() {
+    const snap = await getDoc(doc(db, 'portfolio', 'contact'));
+    const data = snap.exists() ? snap.data() : {
+      heading: 'Reach out if you want to create impactful solutions together.',
+      email: 'mohapatra@crftnest.xyz',
+      website: 'ankitmohapatra.framer.website',
+      linkedin: 'https://www.linkedin.com/in/ankit-mohapatra-5587a33a9',
+      github: 'https://github.com/mohapatra-ankit'
+    };
+    document.getElementById('contact-heading').value = data.heading || '';
+    document.getElementById('contact-email').value = data.email || '';
+    document.getElementById('contact-website').value = data.website || '';
+    document.getElementById('contact-linkedin').value = data.linkedin || '';
+    document.getElementById('contact-github').value = data.github || '';
+    document.getElementById('contact-loading').style.display = 'none';
+    document.getElementById('contact-content').style.display = 'block';
+  }
+
+  document.getElementById('save-contact-btn').addEventListener('click', async () => {
+    const btn = document.getElementById('save-contact-btn');
+    btn.disabled = true; btn.textContent = 'Saving...';
+    await setDoc(doc(db, 'portfolio', 'contact'), {
+      heading: document.getElementById('contact-heading').value,
+      email: document.getElementById('contact-email').value,
+      website: document.getElementById('contact-website').value,
+      linkedin: document.getElementById('contact-linkedin').value,
+      github: document.getElementById('contact-github').value,
+    });
+    btn.disabled = false; btn.textContent = 'Save Contact';
+    showToast('Contact info saved!');
+  });
+
+</script>
+</body>
+</html>
