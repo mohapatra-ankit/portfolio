@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ankit Mohapatra – Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #F2EDE6;
+      --warm-white: #FAF8F5;
+      --dark: #1A1714;
+      --brown: #3B2C20;
+      --bronze: #8B6340;
+      --bronze-light: #C4976A;
+      --sand: #D9C9B5;
+      --text: #2E2018;
+      --muted: #7A6A5A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 5vw;
+      background: rgba(242,237,230,0.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--sand);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--brown);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--bronze); }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px; cursor: pointer;
+      background: none; border: none; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--brown); border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed; top: 60px; left: 0; right: 0;
+      background: var(--cream);
+      border-bottom: 1px solid var(--sand);
+      padding: 1.5rem 5vw;
+      z-index: 99;
+      flex-direction: column; gap: 1.2rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--brown);
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 8rem 5vw 4rem;
+      background: var(--warm-white);
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::after {
+      content: '';
+      position: absolute; bottom: -2px; left: 0; right: 0;
+      height: 80px;
+      background: var(--cream);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+    .hero-inner { max-width: 700px; }
+    .hero-eyebrow {
+      font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--bronze); font-weight: 500; margin-bottom: 1.2rem;
+    }
+    .hero-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--brown);
+      margin-bottom: 1.5rem;
+    }
+    .hero-heading em { font-style: italic; color: var(--bronze-light); }
+    .hero-body {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.8;
+      margin-bottom: 2.4rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      background: var(--brown);
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn:hover { background: var(--bronze); transform: translateY(-1px); }
+
+    /* hero gallery strip */
+    .hero-gallery {
+      display: flex; gap: 1rem; margin-top: 3rem;
+      overflow-x: auto; padding-bottom: 0.5rem;
+      scrollbar-width: none;
+    }
+    .hero-gallery::-webkit-scrollbar { display: none; }
+    .hero-gallery-item {
+      flex: 0 0 auto;
+      width: 180px; height: 130px;
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--sand);
+    }
+    .hero-gallery-item:nth-child(2) { border-radius: 50%; width: 130px; height: 130px; }
+    .hero-gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* placeholder colors for gallery */
+    .gallery-ph-1 { background: #2C2C2C; }
+    .gallery-ph-2 { background: #4A3728; }
+    .gallery-ph-3 { background: #1E2433; }
+    .gallery-ph-4 { background: #3B2C20; }
+
+    /* ── SECTION BASE ── */
+    section { padding: 6rem 5vw; }
+    .section-label {
+      font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--bronze); font-weight: 500; margin-bottom: 0.6rem;
+      display: block;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 400;
+      color: var(--brown);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--cream); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 4rem;
+      align-items: center;
+      max-width: 960px;
+    }
+    .about-text p { color: var(--muted); line-height: 1.85; margin-bottom: 1rem; font-size: 0.97rem; }
+    .about-image {
+      position: relative;
+    }
+    .about-image-frame {
+      width: 100%; aspect-ratio: 3/4;
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--sand);
+    }
+    .about-image-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .about-image-deco {
+      position: absolute;
+      top: -16px; right: -16px;
+      width: 80px; height: 80px;
+      border: 2px solid var(--bronze-light);
+      border-radius: 50%;
+      opacity: 0.4;
+    }
+
+    /* ── EDUCATION ── */
+    #education { background: var(--warm-white); }
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      max-width: 900px;
+    }
+    .edu-card {
+      background: var(--cream);
+      border: 1px solid var(--sand);
+      border-radius: 4px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .edu-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(59,44,32,0.1); }
+    .edu-icon {
+      width: 52px; height: 52px;
+      background: var(--sand);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1rem;
+      font-size: 1.4rem;
+    }
+    .edu-school {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--brown);
+      margin-bottom: 0.25rem;
+    }
+    .edu-location { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.6rem; }
+    .edu-detail { font-size: 0.78rem; color: var(--bronze); line-height: 1.5; }
+
+    /* ── INTERESTS ── */
+    #interests { background: var(--cream); }
+    .interests-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+      max-width: 700px;
+    }
+    .interest-card {
+      aspect-ratio: 1;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      background: var(--sand);
+    }
+    .interest-card img { width: 100%; height: 100%; object-fit: cover; }
+    .interest-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 0.8rem;
+      background: linear-gradient(transparent, rgba(26,23,20,0.8));
+      color: var(--cream);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-align: center;
+    }
+    /* Interest placeholder backgrounds */
+    .int-1 { background: #1A1A2E; }
+    .int-2 { background: #2C2C2C; }
+    .int-3 { background: #D9C9B5; }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--warm-white); }
+    .projects-intro {
+      font-size: 0.9rem; color: var(--muted); margin-bottom: 2.5rem; max-width: 420px;
+    }
+    .projects-intro a { color: var(--bronze); text-decoration: underline; }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      max-width: 960px;
+    }
+    .project-card {
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--sand);
+      position: relative;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+    }
+    .project-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .project-overlay {
+      position: absolute; inset: 0;
+      background: rgba(26,23,20,0.7);
+      opacity: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      transition: opacity 0.25s;
+      padding: 1rem;
+      text-align: center;
+    }
+    .project-card:hover .project-overlay { opacity: 1; }
+    .project-name {
+      color: var(--cream);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .project-type {
+      color: var(--bronze-light);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    /* project placeholder colors */
+    .p1 { background: #E8DDD0; }
+    .p2 { background: #F0EAE0; }
+    .p3 { background: #1A1714; }
+    .p4 { background: #C0392B; }
+    .p5 { background: #ECE5D8; }
+    .p6 { background: #3B2C20; }
+    .p7 { background: #E8DDD0; }
+    .p8 { background: #D4C5B0; }
+    .p9 { background: #C4A882; }
+
+    /* ── BLOGS ── */
+    #blogs { background: var(--dark); }
+    #blogs .section-label { color: var(--bronze-light); }
+    #blogs .section-title { color: var(--cream); }
+    .blogs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      max-width: 900px;
+    }
+    .blog-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(196,151,106,0.2);
+      border-radius: 4px;
+      padding: 2rem 1.5rem;
+    }
+    .blog-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--cream);
+      margin-bottom: 1.2rem;
+      line-height: 1.6;
+    }
+    .blog-quote::before { content: '"'; color: var(--bronze-light); font-size: 2rem; line-height: 0; vertical-align: -0.4rem; margin-right: 4px; }
+    .blog-excerpt { font-size: 0.82rem; color: rgba(250,248,245,0.55); line-height: 1.7; margin-bottom: 1rem; }
+    .blog-attribution { font-size: 0.75rem; color: var(--bronze-light); letter-spacing: 0.05em; }
+
+    /* ── CTA ── */
+    #contact {
+      background: var(--bronze);
+      padding: 7rem 5vw;
+    }
+    .cta-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 300;
+      color: var(--cream);
+      max-width: 600px;
+      line-height: 1.15;
+      margin-bottom: 2.5rem;
+    }
+    .cta-meta {
+      display: flex; flex-direction: column; gap: 0.4rem;
+      margin-bottom: 2.5rem;
+    }
+    .cta-meta a {
+      font-size: 0.85rem;
+      color: rgba(250,248,245,0.75);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .cta-meta a:hover { color: var(--cream); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 2rem;
+      border: 1.5px solid var(--cream);
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .btn-outline:hover { background: rgba(250,248,245,0.12); }
+    .social-links { display: flex; gap: 1rem; margin-top: 2rem; }
+    .social-links a {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(250,248,245,0.4);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--cream); text-decoration: none;
+      font-size: 0.75rem; font-weight: 600;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .social-links a:hover { background: rgba(250,248,245,0.15); border-color: var(--cream); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      padding: 1.5rem 5vw;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    footer p { font-size: 0.75rem; color: rgba(250,248,245,0.35); }
+    .footer-email { font-size: 0.75rem; color: var(--bronze-light); text-decoration: none; }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .about-grid { grid-template-columns: 1fr; }
+      .about-image { max-width: 280px; }
+
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+
+      #contact { padding: 5rem 5vw; }
+    }
+
+    @media (max-width: 480px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      .hero-gallery-item { width: 140px; height: 100px; }
+      .hero-gallery-item:nth-child(2) { width: 100px; height: 100px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">Ankit M.</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#blogs">Blogs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#education" class="mobile-link">Education</a>
+  <a href="#projects" class="mobile-link">Projects</a>
+  <a href="#blogs" class="mobile-link">Blogs</a>
+  <a href="#contact" class="mobile-link">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner reveal">
+    <span class="hero-eyebrow">Technology · Innovation · Impact</span>
+    <h1 class="hero-heading"><em>Hello,</em> I am Ankit!</h1>
+    <p class="hero-body">
+      I am a technology-driven student who began exploring programming during high school, focusing on learning by building rather than limiting myself to theory. Over time, I taught myself multiple programming languages and applied them through real projects and student-led initiatives.
+    </p>
+    <a href="#projects" class="btn">View My Work</a>
+  </div>
+
+  <div class="hero-gallery reveal" style="transition-delay:0.15s">
+    <div class="hero-gallery-item gallery-ph-1">
+      <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=400&q=80" alt="Coding setup"/>
+    </div>
+    <div class="hero-gallery-item gallery-ph-2">
+      <img src="building.png" alt="City at night"/>
+    </div>
+    <div class="hero-gallery-item gallery-ph-3">
+      <img src="math.png" alt="Mathematics"/>
+    </div>
+    <div class="hero-gallery-item gallery-ph-4">
+      <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&q=80" alt="Books"/>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <span class="section-label reveal">Who I Am</span>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <h2 class="section-title">About Ankit Mohapatra</h2>
+      <p>
+        I am passionate about solving real-world problems through technology, combining academic excellence with hands-on innovation. I founded Quantum Crafters, a student-led IT club in Delhi Public School, Ranchi, that promotes practical learning and collaboration beyond the classroom.
+      </p>
+      <p>
+        Academically, I scored 98.6% in the ICSE Class X examinations, secured 94% in Class XII board examinations, and achieved a 98 percentile in JEE. I enjoy exploring emerging technologies, leading initiatives, and building solutions that create meaningful impact.
+      </p>
+      <br/>
+      <a href="#contact" class="btn">Get in Touch</a>
+    </div>
+    <div class="about-image reveal" style="transition-delay:0.1s">
+      <div class="about-image-frame">
+        <img src="me.jpeg" alt="Ankit Mohapatra"/>
+      </div>
+      <div class="about-image-deco"></div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <span class="section-label reveal">Academic Journey</span>
+  <h2 class="section-title reveal">Education</h2>
+  <div class="edu-grid">
+    <div class="edu-card reveal">
+      <div class="edu-icon">🎓</div>
+      <div class="edu-school">St. Thomas School</div>
+      <div class="edu-location">Ranchi</div>
+      <div class="edu-detail">Completed my matriculation in ICSE Board<br/>2020–2024</div>
+    </div>
+    <div class="edu-card reveal" style="transition-delay:0.1s">
+      <div class="edu-icon">🏛️</div>
+      <div class="edu-school">Delhi Public School</div>
+      <div class="edu-location">Ranchi</div>
+      <div class="edu-detail">Completed the Senior School Certification Examination from CBSE Board<br/>2024–2026</div>
+    </div>
+    <div class="edu-card reveal" style="transition-delay:0.2s">
+      <div class="edu-icon">⚙️</div>
+      <div class="edu-school">BITS Pilani</div>
+      <div class="edu-location">Birla Institute of Technology and Science</div>
+      <div class="edu-detail">2026–2031</div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERESTS -->
+<section id="interests">
+  <span class="section-label reveal">What Drives Me</span>
+  <h2 class="section-title reveal">My Interests</h2>
+  <div class="interests-grid">
+    <div class="interest-card reveal">
+      <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&q=80" alt="Coding"/>
+      <div class="interest-label">Coding</div>
+    </div>
+    <div class="interest-card reveal" style="transition-delay:0.1s">
+      <img src="https://images.unsplash.com/photo-1509228468518-180dd4864904?w=500&q=80" alt="Mathematics"/>
+      <div class="interest-label">Mathematics</div>
+    </div>
+    <div class="interest-card reveal" style="transition-delay:0.2s">
+      <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=500&q=80" alt="Reading"/>
+      <div class="interest-label">Reading</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <span class="section-label reveal">Selected Work</span>
+  <h2 class="section-title reveal">Projects Created</h2>
+  <p class="projects-intro reveal">Here are some of the <a href="#">projects</a> I worked on.</p>
+  <div class="projects-grid">
+
+    <div class="project-card p1 reveal">
+      <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80" alt="Vijay Kumavan"/>
+      <div class="project-overlay">
+        <div class="project-name">Vijay Kumavan</div>
+        <div class="project-type">Illustration</div>
+      </div>
+    </div>
+
+    <div class="project-card p2 reveal" style="transition-delay:0.05s">
+      <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=600&q=80" alt="Monsanto Hotel"/>
+      <div class="project-overlay">
+        <div class="project-name">Monsanto Hotel</div>
+        <div class="project-type">Illustration</div>
+      </div>
+    </div>
+
+    <div class="project-card p3 reveal" style="transition-delay:0.1s">
+      <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80" alt="Uni Burger"/>
+      <div class="project-overlay">
+        <div class="project-name">Uni Burger</div>
+        <div class="project-type">Illustration</div>
+      </div>
+    </div>
+
+    <div class="project-card p4 reveal" style="transition-delay:0.05s">
+      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80" alt="Crowd Zero"/>
+      <div class="project-overlay">
+        <div class="project-name">Crowd Zero</div>
+        <div class="project-type">Branding</div>
+      </div>
+    </div>
+
+    <div class="project-card p5 reveal" style="transition-delay:0.1s">
+      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Sara Pardesi"/>
+      <div class="project-overlay">
+        <div class="project-name">Sara Pardesi</div>
+        <div class="project-type">Branding</div>
+      </div>
+    </div>
+
+    <div class="project-card p6 reveal" style="transition-delay:0.15s">
+      <img src="https://images.unsplash.com/photo-1560472355-536de3962603?w=600&q=80" alt="Lucrollo Co."/>
+      <div class="project-overlay">
+        <div class="project-name">Lucrollo Co.</div>
+        <div class="project-type">Branding</div>
+      </div>
+    </div>
+
+    <div class="project-card p7 reveal" style="transition-delay:0.1s">
+      <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600&q=80" alt="Myrs Inc."/>
+      <div class="project-overlay">
+        <div class="project-name">Myrs Inc.</div>
+        <div class="project-type">Print</div>
+      </div>
+    </div>
+
+    <div class="project-card p8 reveal" style="transition-delay:0.15s">
+      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80" alt="One Pride Group"/>
+      <div class="project-overlay">
+        <div class="project-name">One Pride Group</div>
+        <div class="project-type">Print</div>
+      </div>
+    </div>
+
+    <div class="project-card p9 reveal" style="transition-delay:0.2s">
+      <img src="https://images.unsplash.com/photo-1583316174775-bd6dc0e9f298?w=600&q=80" alt="Iris Lotus"/>
+      <div class="project-overlay">
+        <div class="project-name">Iris Lotus</div>
+        <div class="project-type">Print</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BLOGS -->
+<section id="blogs">
+  <span class="section-label reveal">Kind Words</span>
+  <h2 class="section-title reveal">Some Blogs</h2>
+  <div class="blogs-grid">
+    <div class="blog-card reveal">
+      <div class="blog-quote">Vibrant and encouraging enthusiasm</div>
+      <p class="blog-excerpt">Absolutely brilliant project collaboration. Ankit brings a lot of clear visual tools — all while maintaining a vibrant and encouraging enthusiasm.</p>
+      <div class="blog-attribution">Crowd Zero, Shopping Platform</div>
+    </div>
+    <div class="blog-card reveal" style="transition-delay:0.1s">
+      <div class="blog-quote">A truly inspiring designer</div>
+      <p class="blog-excerpt">Ankit's grasp of digital art is truly inspiring. You'll come away a better way of seeing what's possible during the project process with Ankit.</p>
+      <div class="blog-attribution">Sara Pardesi, Social Media Influencer</div>
+    </div>
+    <div class="blog-card reveal" style="transition-delay:0.2s">
+      <div class="blog-quote">Add a one-liner testimonial</div>
+      <p class="blog-excerpt">Great product and service! Ankit's credibility. The ability to tell stories and sell products. People can see conversations as feedback from others who've tried it successfully.</p>
+      <div class="blog-attribution">Vijay Kumaran, Online Store Owner</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / CONTACT -->
+<section id="contact">
+  <h2 class="cta-heading reveal">Reach out if you want to create impactful solutions together.</h2>
+  <div class="cta-meta reveal">
+    <a href="crftnest.xyz">ankitmohapatra.framer.website</a>
+    <a href="mailto:mohapatra@crftnest.xyz">mohapatra@crftnest.xyz</a>
+  </div>
+  <a href="mohapatra@crftnest.xyz" class="btn-outline reveal">
+    Send a Message →
+  </a>
+  <div class="social-links reveal">
+    <a href="www.linkedin.com/in/ankit-mohapatra-5587a33a9" aria-label="LinkedIn">in</a>
+    <a href="https://github.com/mohapatra-ankit" aria-label="GitHub">gh</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Ankit Mohapatra. All rights reserved.</p>
+  <a href="mohapatra@crftnest.xyz" class="footer-email">mohapatra@crftnest.xyz</a>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => io.observe(el));
+
+  // Reduced motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    reveals.forEach(el => el.classList.add('visible'));
+  }
+</script>
+</body>
+</html>
