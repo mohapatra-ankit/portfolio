@@ -147,7 +147,6 @@
     }
     .btn:hover { background: var(--bronze); transform: translateY(-1px); }
 
-    /* hero gallery strip */
     .hero-gallery {
       display: flex; gap: 1rem; margin-top: 3rem;
       overflow-x: auto; padding-bottom: 0.5rem;
@@ -164,7 +163,6 @@
     .hero-gallery-item:nth-child(2) { border-radius: 50%; width: 130px; height: 130px; }
     .hero-gallery-item img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* placeholder colors for gallery */
     .gallery-ph-1 { background: #2C2C2C; }
     .gallery-ph-2 { background: #4A3728; }
     .gallery-ph-3 { background: #1E2433; }
@@ -195,9 +193,7 @@
       max-width: 960px;
     }
     .about-text p { color: var(--muted); line-height: 1.85; margin-bottom: 1rem; font-size: 0.97rem; }
-    .about-image {
-      position: relative;
-    }
+    .about-image { position: relative; }
     .about-image-frame {
       width: 100%; aspect-ratio: 3/4;
       border-radius: 4px;
@@ -275,10 +271,6 @@
       letter-spacing: 0.05em;
       text-align: center;
     }
-    /* Interest placeholder backgrounds */
-    .int-1 { background: #1A1A2E; }
-    .int-2 { background: #2C2C2C; }
-    .int-3 { background: #D9C9B5; }
 
     /* ── PROJECTS ── */
     #projects { background: var(--warm-white); }
@@ -324,16 +316,6 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
     }
-    /* project placeholder colors */
-    .p1 { background: #E8DDD0; }
-    .p2 { background: #F0EAE0; }
-    .p3 { background: #1A1714; }
-    .p4 { background: #C0392B; }
-    .p5 { background: #ECE5D8; }
-    .p6 { background: #3B2C20; }
-    .p7 { background: #E8DDD0; }
-    .p8 { background: #D4C5B0; }
-    .p9 { background: #C4A882; }
 
     /* ── BLOGS ── */
     #blogs { background: var(--dark); }
@@ -363,7 +345,7 @@
     .blog-excerpt { font-size: 0.82rem; color: rgba(250,248,245,0.55); line-height: 1.7; margin-bottom: 1rem; }
     .blog-attribution { font-size: 0.75rem; color: var(--bronze-light); letter-spacing: 0.05em; }
 
-    /* ── CTA ── */
+    /* ── CONTACT ── */
     #contact {
       background: var(--bronze);
       padding: 7rem 5vw;
@@ -424,6 +406,29 @@
     footer p { font-size: 0.75rem; color: rgba(250,248,245,0.35); }
     .footer-email { font-size: 0.75rem; color: var(--bronze-light); text-decoration: none; }
 
+    /* ── SKELETON LOADER ── */
+    .skeleton {
+      background: linear-gradient(90deg, var(--sand) 25%, var(--cream) 50%, var(--sand) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: 4px;
+    }
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .skeleton-card {
+      height: 160px;
+      border-radius: 4px;
+    }
+    .skeleton-blog {
+      height: 180px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.06) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+    }
+
     /* ── SCROLL REVEAL ── */
     .reveal {
       opacity: 0; transform: translateY(28px);
@@ -435,15 +440,11 @@
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
-
       .about-grid { grid-template-columns: 1fr; }
       .about-image { max-width: 280px; }
-
       .projects-grid { grid-template-columns: repeat(2, 1fr); }
-
       #contact { padding: 5rem 5vw; }
     }
-
     @media (max-width: 480px) {
       .projects-grid { grid-template-columns: 1fr; }
       .hero-gallery-item { width: 140px; height: 100px; }
@@ -485,7 +486,6 @@
     </p>
     <a href="#projects" class="btn">View My Work</a>
   </div>
-
   <div class="hero-gallery reveal" style="transition-delay:0.15s">
     <div class="hero-gallery-item gallery-ph-1">
       <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=400&q=80" alt="Coding setup"/>
@@ -526,29 +526,15 @@
   </div>
 </section>
 
-<!-- EDUCATION -->
+<!-- EDUCATION — dynamically loaded -->
 <section id="education">
   <span class="section-label reveal">Academic Journey</span>
   <h2 class="section-title reveal">Education</h2>
-  <div class="edu-grid">
-    <div class="edu-card reveal">
-      <div class="edu-icon">🎓</div>
-      <div class="edu-school">St. Thomas School</div>
-      <div class="edu-location">Ranchi</div>
-      <div class="edu-detail">Completed my matriculation in ICSE Board<br/>2020–2024</div>
-    </div>
-    <div class="edu-card reveal" style="transition-delay:0.1s">
-      <div class="edu-icon">🏛️</div>
-      <div class="edu-school">Delhi Public School</div>
-      <div class="edu-location">Ranchi</div>
-      <div class="edu-detail">Completed the Senior School Certification Examination from CBSE Board<br/>2024–2026</div>
-    </div>
-    <div class="edu-card reveal" style="transition-delay:0.2s">
-      <div class="edu-icon">⚙️</div>
-      <div class="edu-school">BITS Pilani</div>
-      <div class="edu-location">Birla Institute of Technology and Science</div>
-      <div class="edu-detail">2026–2031</div>
-    </div>
+  <div class="edu-grid" id="edu-grid">
+    <!-- skeleton placeholders while loading -->
+    <div class="skeleton skeleton-card"></div>
+    <div class="skeleton skeleton-card"></div>
+    <div class="skeleton skeleton-card"></div>
   </div>
 </section>
 
@@ -572,135 +558,229 @@
   </div>
 </section>
 
-<!-- PROJECTS -->
+<!-- PROJECTS — dynamically loaded -->
 <section id="projects">
   <span class="section-label reveal">Selected Work</span>
   <h2 class="section-title reveal">Projects Created</h2>
   <p class="projects-intro reveal">Here are some of the <a href="#">projects</a> I worked on.</p>
-  <div class="projects-grid">
-
-    <div class="project-card p1 reveal">
-      <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80" alt="Vijay Kumavan"/>
-      <div class="project-overlay">
-        <div class="project-name">Vijay Kumavan</div>
-        <div class="project-type">Illustration</div>
-      </div>
-    </div>
-
-    <div class="project-card p2 reveal" style="transition-delay:0.05s">
-      <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=600&q=80" alt="Monsanto Hotel"/>
-      <div class="project-overlay">
-        <div class="project-name">Monsanto Hotel</div>
-        <div class="project-type">Illustration</div>
-      </div>
-    </div>
-
-    <div class="project-card p3 reveal" style="transition-delay:0.1s">
-      <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80" alt="Uni Burger"/>
-      <div class="project-overlay">
-        <div class="project-name">Uni Burger</div>
-        <div class="project-type">Illustration</div>
-      </div>
-    </div>
-
-    <div class="project-card p4 reveal" style="transition-delay:0.05s">
-      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80" alt="Crowd Zero"/>
-      <div class="project-overlay">
-        <div class="project-name">Crowd Zero</div>
-        <div class="project-type">Branding</div>
-      </div>
-    </div>
-
-    <div class="project-card p5 reveal" style="transition-delay:0.1s">
-      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Sara Pardesi"/>
-      <div class="project-overlay">
-        <div class="project-name">Sara Pardesi</div>
-        <div class="project-type">Branding</div>
-      </div>
-    </div>
-
-    <div class="project-card p6 reveal" style="transition-delay:0.15s">
-      <img src="https://images.unsplash.com/photo-1560472355-536de3962603?w=600&q=80" alt="Lucrollo Co."/>
-      <div class="project-overlay">
-        <div class="project-name">Lucrollo Co.</div>
-        <div class="project-type">Branding</div>
-      </div>
-    </div>
-
-    <div class="project-card p7 reveal" style="transition-delay:0.1s">
-      <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600&q=80" alt="Myrs Inc."/>
-      <div class="project-overlay">
-        <div class="project-name">Myrs Inc.</div>
-        <div class="project-type">Print</div>
-      </div>
-    </div>
-
-    <div class="project-card p8 reveal" style="transition-delay:0.15s">
-      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80" alt="One Pride Group"/>
-      <div class="project-overlay">
-        <div class="project-name">One Pride Group</div>
-        <div class="project-type">Print</div>
-      </div>
-    </div>
-
-    <div class="project-card p9 reveal" style="transition-delay:0.2s">
-      <img src="https://images.unsplash.com/photo-1583316174775-bd6dc0e9f298?w=600&q=80" alt="Iris Lotus"/>
-      <div class="project-overlay">
-        <div class="project-name">Iris Lotus</div>
-        <div class="project-type">Print</div>
-      </div>
-    </div>
-
+  <div class="projects-grid" id="proj-grid">
+    <!-- skeleton placeholders -->
+    <div class="skeleton skeleton-card"></div>
+    <div class="skeleton skeleton-card"></div>
+    <div class="skeleton skeleton-card"></div>
+    <div class="skeleton skeleton-card"></div>
+    <div class="skeleton skeleton-card"></div>
+    <div class="skeleton skeleton-card"></div>
   </div>
 </section>
 
-<!-- BLOGS -->
+<!-- BLOGS — dynamically loaded -->
 <section id="blogs">
   <span class="section-label reveal">Kind Words</span>
   <h2 class="section-title reveal">Some Blogs</h2>
-  <div class="blogs-grid">
-    <div class="blog-card reveal">
-      <div class="blog-quote">Vibrant and encouraging enthusiasm</div>
-      <p class="blog-excerpt">Absolutely brilliant project collaboration. Ankit brings a lot of clear visual tools — all while maintaining a vibrant and encouraging enthusiasm.</p>
-      <div class="blog-attribution">Crowd Zero, Shopping Platform</div>
-    </div>
-    <div class="blog-card reveal" style="transition-delay:0.1s">
-      <div class="blog-quote">A truly inspiring designer</div>
-      <p class="blog-excerpt">Ankit's grasp of digital art is truly inspiring. You'll come away a better way of seeing what's possible during the project process with Ankit.</p>
-      <div class="blog-attribution">Sara Pardesi, Social Media Influencer</div>
-    </div>
-    <div class="blog-card reveal" style="transition-delay:0.2s">
-      <div class="blog-quote">Add a one-liner testimonial</div>
-      <p class="blog-excerpt">Great product and service! Ankit's credibility. The ability to tell stories and sell products. People can see conversations as feedback from others who've tried it successfully.</p>
-      <div class="blog-attribution">Vijay Kumaran, Online Store Owner</div>
-    </div>
+  <div class="blogs-grid" id="blogs-grid">
+    <!-- skeleton placeholders -->
+    <div class="skeleton skeleton-blog"></div>
+    <div class="skeleton skeleton-blog"></div>
+    <div class="skeleton skeleton-blog"></div>
   </div>
 </section>
 
-<!-- CTA / CONTACT -->
+<!-- CONTACT — dynamically loaded -->
 <section id="contact">
-  <h2 class="cta-heading reveal">Reach out if you want to create impactful solutions together.</h2>
+  <h2 class="cta-heading reveal" id="contact-heading">Reach out if you want to create impactful solutions together.</h2>
   <div class="cta-meta reveal">
-    <a href="crftnest.xyz">ankitmohapatra.framer.website</a>
-    <a href="mailto:mohapatra@crftnest.xyz">mohapatra@crftnest.xyz</a>
+    <a href="#" id="contact-website">ankitmohapatra.framer.website</a>
+    <a href="#" id="contact-email-link">mohapatra@crftnest.xyz</a>
   </div>
-  <a href="mohapatra@crftnest.xyz" class="btn-outline reveal">
-    Send a Message →
-  </a>
+  <a href="#" class="btn-outline reveal" id="contact-send-btn">Send a Message →</a>
   <div class="social-links reveal">
-    <a href="www.linkedin.com/in/ankit-mohapatra-5587a33a9" aria-label="LinkedIn">in</a>
-    <a href="https://github.com/mohapatra-ankit" aria-label="GitHub">gh</a>
+    <a href="#" id="contact-linkedin" aria-label="LinkedIn">in</a>
+    <a href="#" id="contact-github" aria-label="GitHub">gh</a>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <p>© 2026 Ankit Mohapatra. All rights reserved.</p>
-  <a href="mohapatra@crftnest.xyz" class="footer-email">mohapatra@crftnest.xyz</a>
+  <a href="#" class="footer-email" id="footer-email">mohapatra@crftnest.xyz</a>
 </footer>
 
-<script>
-  // Mobile menu toggle
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, doc, getDoc }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAGXUCwIWavNtIAy69CzpuArdW6BouMLSE",
+    authDomain: "my-portfolio-eea87.firebaseapp.com",
+    projectId: "my-portfolio-eea87",
+    storageBucket: "my-portfolio-eea87.firebasestorage.app",
+    messagingSenderId: "257049023490",
+    appId: "1:257049023490:web:ff4af2073ab154f02f031b"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // ── FALLBACK DATA (shown if Firestore is empty) ──
+  const fallbacks = {
+    education: [
+      { icon: '🎓', school: 'St. Thomas School', location: 'Ranchi', detail: 'Completed my matriculation in ICSE Board', years: '2020–2024' },
+      { icon: '🏛️', school: 'Delhi Public School', location: 'Ranchi', detail: 'Completed the Senior School Certification Examination from CBSE Board', years: '2024–2026' },
+      { icon: '⚙️', school: 'BITS Pilani', location: 'Birla Institute of Technology and Science', detail: '', years: '2026–2031' }
+    ],
+    projects: [
+      { name: 'Vijay Kumavan', type: 'Illustration', image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&q=80', link: '' },
+      { name: 'Monsanto Hotel', type: 'Illustration', image: 'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=600&q=80', link: '' },
+      { name: 'Uni Burger', type: 'Illustration', image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80', link: '' },
+      { name: 'Crowd Zero', type: 'Branding', image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80', link: '' },
+      { name: 'Sara Pardesi', type: 'Branding', image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80', link: '' },
+      { name: 'Lucrollo Co.', type: 'Branding', image: 'https://images.unsplash.com/photo-1560472355-536de3962603?w=600&q=80', link: '' },
+    ],
+    blogs: [
+      { quote: 'Vibrant and encouraging enthusiasm', excerpt: 'Absolutely brilliant project collaboration. Ankit brings a lot of clear visual tools — all while maintaining a vibrant and encouraging enthusiasm.', attribution: 'Crowd Zero, Shopping Platform' },
+      { quote: 'A truly inspiring designer', excerpt: "Ankit's grasp of digital art is truly inspiring. You'll come away a better way of seeing what's possible during the project process with Ankit.", attribution: 'Sara Pardesi, Social Media Influencer' },
+      { quote: 'Add a one-liner testimonial', excerpt: "Great product and service! Ankit's credibility. The ability to tell stories and sell products.", attribution: 'Vijay Kumaran, Online Store Owner' },
+    ],
+    contact: {
+      heading: 'Reach out if you want to create impactful solutions together.',
+      email: 'mohapatra@crftnest.xyz',
+      website: 'ankitmohapatra.framer.website',
+      linkedin: 'https://www.linkedin.com/in/ankit-mohapatra-5587a33a9',
+      github: 'https://github.com/mohapatra-ankit'
+    }
+  };
+
+  // ── RENDER EDUCATION ──
+  function renderEducation(items) {
+    const grid = document.getElementById('edu-grid');
+    grid.innerHTML = '';
+    items.forEach((item, i) => {
+      const card = document.createElement('div');
+      card.className = 'edu-card reveal';
+      card.style.transitionDelay = `${i * 0.1}s`;
+      card.innerHTML = `
+        <div class="edu-icon">${item.icon || '🎓'}</div>
+        <div class="edu-school">${item.school || ''}</div>
+        <div class="edu-location">${item.location || ''}</div>
+        <div class="edu-detail">${item.detail ? item.detail + '<br/>' : ''}${item.years || ''}</div>
+      `;
+      grid.appendChild(card);
+    });
+    observeReveal();
+  }
+
+  // ── RENDER PROJECTS ──
+  const bgColors = ['#E8DDD0','#F0EAE0','#1A1714','#C0392B','#ECE5D8','#3B2C20','#E8DDD0','#D4C5B0','#C4A882'];
+  function renderProjects(items) {
+    const grid = document.getElementById('proj-grid');
+    grid.innerHTML = '';
+    items.forEach((item, i) => {
+      const card = document.createElement('div');
+      card.className = 'project-card reveal';
+      card.style.background = bgColors[i % bgColors.length];
+      card.style.transitionDelay = `${(i % 3) * 0.05}s`;
+      const linkAttr = item.link ? `onclick="window.open('${item.link}','_blank')"` : '';
+      card.innerHTML = `
+        ${item.image ? `<img src="${item.image}" alt="${item.name}" onerror="this.style.display='none'"/>` : ''}
+        <div class="project-overlay" ${linkAttr}>
+          <div class="project-name">${item.name || ''}</div>
+          <div class="project-type">${item.type || ''}</div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+    observeReveal();
+  }
+
+  // ── RENDER BLOGS ──
+  function renderBlogs(items) {
+    const grid = document.getElementById('blogs-grid');
+    grid.innerHTML = '';
+    items.forEach((item, i) => {
+      const card = document.createElement('div');
+      card.className = 'blog-card reveal';
+      card.style.transitionDelay = `${i * 0.1}s`;
+      card.innerHTML = `
+        <div class="blog-quote">${item.quote || ''}</div>
+        <p class="blog-excerpt">${item.excerpt || ''}</p>
+        <div class="blog-attribution">${item.attribution || ''}</div>
+      `;
+      grid.appendChild(card);
+    });
+    observeReveal();
+  }
+
+  // ── RENDER CONTACT ──
+  function renderContact(data) {
+    document.getElementById('contact-heading').textContent = data.heading || '';
+    const emailEl = document.getElementById('contact-email-link');
+    emailEl.textContent = data.email || '';
+    emailEl.href = `mailto:${data.email || ''}`;
+    const websiteEl = document.getElementById('contact-website');
+    websiteEl.textContent = data.website || '';
+    websiteEl.href = data.website ? `https://${data.website.replace(/^https?:\/\//, '')}` : '#';
+    document.getElementById('contact-send-btn').href = `mailto:${data.email || ''}`;
+    document.getElementById('contact-linkedin').href = data.linkedin || '#';
+    document.getElementById('contact-github').href = data.github || '#';
+    document.getElementById('footer-email').textContent = data.email || '';
+    document.getElementById('footer-email').href = `mailto:${data.email || ''}`;
+  }
+
+  // ── FETCH FROM FIRESTORE ──
+  async function fetchSection(name, fallback) {
+    try {
+      const snap = await getDoc(doc(db, 'portfolio', name));
+      if (snap.exists()) {
+        return snap.data();
+      }
+    } catch (e) {
+      console.warn(`Could not load ${name} from Firestore, using fallback.`);
+    }
+    return null;
+  }
+
+  async function loadPortfolio() {
+    const [eduSnap, projSnap, blogSnap, contactSnap] = await Promise.all([
+      fetchSection('education'),
+      fetchSection('projects'),
+      fetchSection('blogs'),
+      fetchSection('contact'),
+    ]);
+
+    renderEducation(eduSnap?.items || fallbacks.education);
+    renderProjects(projSnap?.items || fallbacks.projects);
+    renderBlogs(blogSnap?.items || fallbacks.blogs);
+    renderContact(contactSnap || fallbacks.contact);
+  }
+
+  loadPortfolio();
+
+  // ── SCROLL REVEAL ──
+  function observeReveal() {
+    const reveals = document.querySelectorAll('.reveal:not(.observed)');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => {
+      el.classList.add('observed');
+      io.observe(el);
+    });
+  }
+
+  observeReveal();
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+  }
+
+  // ── MOBILE MENU ──
   const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobileMenu');
   hamburger.addEventListener('click', () => {
@@ -713,23 +793,6 @@
       mobileMenu.classList.remove('open');
     });
   });
-
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => io.observe(el));
-
-  // Reduced motion
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    reveals.forEach(el => el.classList.add('visible'));
-  }
 </script>
 </body>
 </html>
