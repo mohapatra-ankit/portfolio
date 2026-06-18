@@ -344,6 +344,12 @@
     .blog-quote::before { content: '"'; color: var(--bronze-light); font-size: 2rem; line-height: 0; vertical-align: -0.4rem; margin-right: 4px; }
     .blog-excerpt { font-size: 0.82rem; color: rgba(250,248,245,0.55); line-height: 1.7; margin-bottom: 1rem; }
     .blog-attribution { font-size: 0.75rem; color: var(--bronze-light); letter-spacing: 0.05em; }
+    .blog-link-icon { margin-left: 0.3rem; font-size: 0.8rem; opacity: 0.7; }
+    .blog-card[style*="pointer"] { transition: transform 0.2s, border-color 0.2s; }
+    .blog-card[style*="pointer"]:hover {
+      transform: translateY(-4px);
+      border-color: rgba(196,151,106,0.5);
+    }
 
     /* ── CONTACT ── */
     #contact {
@@ -593,7 +599,7 @@
     <a href="#" id="contact-website">ankitmohapatra.framer.website</a>
     <a href="#" id="contact-email-link">mohapatra@crftnest.xyz</a>
   </div>
-  <a href="https://forms.gle/2T1c5Kz4htaxtMCu6" class="btn-outline reveal" id="contact-send-btn">Send a Message →</a>
+  <a href="#" class="btn-outline reveal" id="contact-send-btn">Send a Message →</a>
   <div class="social-links reveal">
     <a href="#" id="contact-linkedin" aria-label="LinkedIn">in</a>
     <a href="#" id="contact-github" aria-label="GitHub">gh</a>
@@ -639,9 +645,9 @@
       { name: 'Lucrollo Co.', type: 'Branding', image: 'https://images.unsplash.com/photo-1560472355-536de3962603?w=600&q=80', link: '' },
     ],
     blogs: [
-      { quote: 'Vibrant and encouraging enthusiasm', excerpt: 'Absolutely brilliant project collaboration. Ankit brings a lot of clear visual tools — all while maintaining a vibrant and encouraging enthusiasm.', attribution: 'Crowd Zero, Shopping Platform' },
-      { quote: 'A truly inspiring designer', excerpt: "Ankit's grasp of digital art is truly inspiring. You'll come away a better way of seeing what's possible during the project process with Ankit.", attribution: 'Sara Pardesi, Social Media Influencer' },
-      { quote: 'Add a one-liner testimonial', excerpt: "Great product and service! Ankit's credibility. The ability to tell stories and sell products.", attribution: 'Vijay Kumaran, Online Store Owner' },
+      { quote: 'Vibrant and encouraging enthusiasm', excerpt: 'Absolutely brilliant project collaboration. Ankit brings a lot of clear visual tools — all while maintaining a vibrant and encouraging enthusiasm.', attribution: 'Crowd Zero, Shopping Platform', link: '' },
+      { quote: 'A truly inspiring designer', excerpt: "Ankit's grasp of digital art is truly inspiring. You'll come away a better way of seeing what's possible during the project process with Ankit.", attribution: 'Sara Pardesi, Social Media Influencer', link: '' },
+      { quote: 'Add a one-liner testimonial', excerpt: "Great product and service! Ankit's credibility. The ability to tell stories and sell products.", attribution: 'Vijay Kumaran, Online Store Owner', link: '' },
     ],
     contact: {
       heading: 'Reach out if you want to create impactful solutions together.',
@@ -702,10 +708,14 @@
       const card = document.createElement('div');
       card.className = 'blog-card reveal';
       card.style.transitionDelay = `${i * 0.1}s`;
+      if (item.link) {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', () => window.open(item.link, '_blank'));
+      }
       card.innerHTML = `
         <div class="blog-quote">${item.quote || ''}</div>
         <p class="blog-excerpt">${item.excerpt || ''}</p>
-        <div class="blog-attribution">${item.attribution || ''}</div>
+        <div class="blog-attribution">${item.attribution || ''}${item.link ? ' <span class="blog-link-icon">↗</span>' : ''}</div>
       `;
       grid.appendChild(card);
     });
