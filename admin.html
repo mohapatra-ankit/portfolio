@@ -695,9 +695,9 @@
   async function loadBlogs() {
     const snap = await getDoc(doc(db, 'portfolio', 'blogs'));
     blogData = snap.exists() ? (snap.data().items || []) : [
-      { quote: 'Vibrant and encouraging enthusiasm', excerpt: 'Absolutely brilliant project collaboration. Ankit brings a lot of clear visual tools — all while maintaining a vibrant and encouraging enthusiasm.', attribution: 'Crowd Zero, Shopping Platform' },
-      { quote: 'A truly inspiring designer', excerpt: "Ankit's grasp of digital art is truly inspiring. You'll come away a better way of seeing what's possible during the project process with Ankit.", attribution: 'Sara Pardesi, Social Media Influencer' },
-      { quote: 'Add a one-liner testimonial', excerpt: "Great product and service! Ankit's credibility. The ability to tell stories and sell products.", attribution: 'Vijay Kumaran, Online Store Owner' },
+      { quote: 'Vibrant and encouraging enthusiasm', excerpt: 'Absolutely brilliant project collaboration. Ankit brings a lot of clear visual tools — all while maintaining a vibrant and encouraging enthusiasm.', attribution: 'Crowd Zero, Shopping Platform', link: '' },
+      { quote: 'A truly inspiring designer', excerpt: "Ankit's grasp of digital art is truly inspiring. You'll come away a better way of seeing what's possible during the project process with Ankit.", attribution: 'Sara Pardesi, Social Media Influencer', link: '' },
+      { quote: 'Add a one-liner testimonial', excerpt: "Great product and service! Ankit's credibility. The ability to tell stories and sell products.", attribution: 'Vijay Kumaran, Online Store Owner', link: '' },
     ];
     renderBlogs();
     document.getElementById('blog-loading').style.display = 'none';
@@ -727,6 +727,10 @@
           <label>Attribution</label>
           <input type="text" value="${item.attribution || ''}" data-field="attribution" data-i="${i}" placeholder="Name, Role"/>
         </div>
+        <div class="form-group">
+          <label>Blog Link (URL) — leave empty if no link</label>
+          <input type="url" value="${item.link || ''}" data-field="link" data-i="${i}" placeholder="https://medium.com/your-blog-post"/>
+        </div>
       `;
       container.appendChild(block);
     });
@@ -746,7 +750,7 @@
   }
 
   document.getElementById('add-blog-btn').addEventListener('click', () => {
-    blogData.push({ quote: '', excerpt: '', attribution: '' });
+    blogData.push({ quote: '', excerpt: '', attribution: '', link: '' });
     renderBlogs();
   });
 
